@@ -12,7 +12,7 @@ class ObjectBoxQueryPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('ObjectBox Query Page'),
+        title: Text('Management'),
       ),
       body: FutureBuilder<List<MyObject>>(
         future: objectBoxManager.getAllMyObjectData(),

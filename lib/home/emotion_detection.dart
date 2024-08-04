@@ -13,16 +13,45 @@ class EmotionDetection {
   }
 
   Future<void> loadModel() async {
-    interpreter = await Interpreter.fromAsset('assets/final_model_face_emotion.tflite');
+    interpreter = await Interpreter.fromAsset('assets/model_mobilenet_48.tflite');
   }
+
+  // Future<List<double>> predict(InputImage inputImage, Face faceDetected) async {
+  //   imglib.Image croppedImage = await _cropFace(inputImage, faceDetected);
+  //   imglib.Image resizedImage = imglib.copyResize(croppedImage, width: 224, height: 224);
+  //
+  //   var input = List.generate(1, (i) => List.generate(224, (j) => List.generate(224, (k) => List.generate(3, (l) => 0.0))));
+  //   for (int y = 0; y < 224; y++) {
+  //     for (int x = 0; x < 224; x++) {
+  //       var pixel = resizedImage.getPixel(x, y);
+  //       input[0][y][x][0] = pixel.r / 255.0;
+  //       input[0][y][x][1] = pixel.g / 255.0;
+  //       input[0][y][x][2] = pixel.b / 255.0;
+  //     }
+  //   }
+  //
+  //   var output = List.generate(1, (i) => List.generate(7, (j) => 0.0));
+  //
+  //   interpreter.run(input, output);
+  //
+  //   // var emotions = ['Angry', 'Disgust', 'Fear', 'Happy', 'Neutral', 'Sad', 'Surprise'];
+  //   // int maxIndex = output[0].indexOf(output[0].reduce((curr, next) => curr > next ? curr : next));
+  //   //
+  //   // return emotions[maxIndex];
+  //   return output[0];
+  // }
 
   Future<List<double>> predict(InputImage inputImage, Face faceDetected) async {
     imglib.Image croppedImage = await _cropFace(inputImage, faceDetected);
-    imglib.Image resizedImage = imglib.copyResize(croppedImage, width: 224, height: 224);
 
-    var input = List.generate(1, (i) => List.generate(224, (j) => List.generate(224, (k) => List.generate(3, (l) => 0.0))));
-    for (int y = 0; y < 224; y++) {
-      for (int x = 0; x < 224; x++) {
+    // Thay đổi kích thước ảnh về 48 x 48
+    imglib.Image resizedImage = imglib.copyResize(croppedImage, width: 48, height: 48);
+
+    // Chuẩn bị đầu vào cho mô hình với kích thước 48 x 48 x 3
+    var input = List.generate(1, (i) => List.generate(48, (j) => List.generate(48, (k) => List.generate(3, (l) => 0.0))));
+
+    for (int y = 0; y < 48; y++) {
+      for (int x = 0; x < 48; x++) {
         var pixel = resizedImage.getPixel(x, y);
         input[0][y][x][0] = pixel.r / 255.0;
         input[0][y][x][1] = pixel.g / 255.0;
@@ -34,12 +63,9 @@ class EmotionDetection {
 
     interpreter.run(input, output);
 
-    // var emotions = ['Angry', 'Disgust', 'Fear', 'Happy', 'Neutral', 'Sad', 'Surprise'];
-    // int maxIndex = output[0].indexOf(output[0].reduce((curr, next) => curr > next ? curr : next));
-    //
-    // return emotions[maxIndex];
     return output[0];
   }
+
 
   Future<imglib.Image> _cropFace(InputImage inputImage, Face faceDetected) async {
     imglib.Image convertedImage = await decodeYUV420SP(inputImage);

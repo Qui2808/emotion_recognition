@@ -25,7 +25,7 @@ class Home extends StatelessWidget {
                         Navigator.push(
                             context, MaterialPageRoute(builder: (context) => FaceDetectorView()));
                       },
-                      child: const Text('Face Detection')),
+                      child: const Text('Emotion Recognition')),
 
                   Padding(
                     padding: const EdgeInsets.only(top: 28.0),
@@ -34,7 +34,7 @@ class Home extends StatelessWidget {
                           Navigator.push(
                               context, MaterialPageRoute(builder: (context) => ObjectBoxQueryPage()));
                         },
-                        child: const Text('Face Manager')),
+                        child: const Text('Emotion Manager')),
                   )
 
                 ],
