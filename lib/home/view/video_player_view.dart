@@ -16,6 +16,7 @@ class _VideoPlayerViewState extends State<VideoPlayerView> {
   late FlickManager flickManager;
   bool _isPlaying = false;
   bool _isEnded = false;
+  //var duration;
 
   late FaceDetectorViewModel faceDetectorViewModel;
 
@@ -23,10 +24,16 @@ class _VideoPlayerViewState extends State<VideoPlayerView> {
   void initState() {
     super.initState();
     flickManager = FlickManager(
-      videoPlayerController: VideoPlayerController.asset("assets/short_video.mp4"),
+      videoPlayerController: VideoPlayerController.asset("assets/videos/cat_video.mp4"),
     );
 
     addListener();
+
+    // // Lắng nghe sự kiện khi video được khởi tạo xong
+    // flickManager.flickVideoManager?.videoPlayerController?.initialize().then((_) {
+    //   duration = flickManager.flickVideoManager?.videoPlayerController?.value.duration;
+    //   print("Thời lượng video: ${duration?.inSeconds} giây");
+    // });
   }
 
   void initViewModel() {
@@ -49,19 +56,16 @@ class _VideoPlayerViewState extends State<VideoPlayerView> {
         flickManager.flickVideoManager?.videoPlayerController?.value.duration;
 
     if (isPlaying && !_isPlaying && !isBuffering) {
-      // Hành động khi video bắt đầu phát
       _isPlaying = true;
       print('Video đang phát');
       onPlay();
     } else if (!isPlaying && _isPlaying && !isBuffering) {
-      // Hành động khi video tạm dừng
       _isPlaying = false;
       print('Video đã tạm dừng');
       onPause();
     }
 
     if (isEnded && !_isEnded) {
-      // Hành động khi video kết thúc
       _isPlaying = false;
       _isEnded = true;
       print('Video đã kết thúc');
@@ -70,24 +74,21 @@ class _VideoPlayerViewState extends State<VideoPlayerView> {
   }
 
   void onPlay() {
-    // Thực hiện hành động khi video bắt đầu phát
     print('Hành động khi video bắt đầu phát');
     initViewModel();
   }
 
   void onPause() {
-    // Thực hiện hành động khi video tạm dừng
     print('Hành động khi video tạm dừng');
   }
 
   void onEnd() {
-    // Thực hiện hành động khi video kết thúc
     print('Hành động khi video kết thúc');
     var viewModel = Provider.of<FaceDetectorViewModel>(context, listen: false);
     List<List<double>?> arrEmo = viewModel.arrEmo;
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('yyyy-MM-dd – kk:mm').format(now);
-    faceDetectorViewModel.saveEmotionData("short_video", formattedDate, arrEmo);
+    faceDetectorViewModel.saveEmotionData("Cat_video", formattedDate, arrEmo);
   }
 
 
@@ -115,8 +116,11 @@ class _VideoPlayerViewState extends State<VideoPlayerView> {
     return Container(
       child: FlickVideoPlayer(
         flickManager: flickManager,
+        flickVideoWithControls: const FlickVideoWithControls(
+          videoFit: BoxFit.contain, // Đảm bảo video không bị cắt
+          controls: FlickPortraitControls(),
+        ),
       ),
     );
   }
 }
-

@@ -9,6 +9,8 @@ import 'package:google_mlkit_commons/google_mlkit_commons.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 
+import '../utils.dart';
+
 class CameraView extends StatefulWidget {
   CameraView(
       {Key? key,
@@ -161,7 +163,7 @@ class _CameraViewState extends State<CameraView> {
     if (emotion == null) {
       return const Positioned(
         bottom: 90,
-        right: 4,
+        left: 4,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -177,7 +179,7 @@ class _CameraViewState extends State<CameraView> {
     double maxEmotionValue = emotion.reduce((curr, next) => curr > next ? curr : next);
 
     // Danh sách các cảm xúc
-    var emotions = ['Angry', 'Disgust', 'Fear', 'Happy', 'Neutral', 'Sad', 'Surprise'];
+    var emotions = listEmotionNames;
 
     return Positioned(
       bottom: 90,

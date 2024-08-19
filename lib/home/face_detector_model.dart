@@ -106,8 +106,12 @@ class FaceDetectorViewModel with ChangeNotifier {
       }
       _text = text;
       emo = null;
-      print('@@@@@@@@@@@@@@@ emotion Null: ${emo} @@@@@@@@@@@@@@@@');
+      print('@@@@@@@@@@@@@@@ text Null: ${text} @@@@@@@@@@@@@@@@');
       _customPaint = null;
+    }
+    if(faces.isEmpty){
+      emo = null;
+      print('@@@@@@@@@@@@@@@ emotion Null: ${emo} @@@@@@@@@@@@@@@@');
     }
     _isBusy = false;
     notifyListeners();

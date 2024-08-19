@@ -19,3 +19,13 @@ Future<String> getAssetPath(String asset) async {
 Future<String> getLocalPath(String path) async {
   return '${(await getApplicationSupportDirectory()).path}/$path';
 }
+
+final List<String> listEmotionNames = [
+  "Angry",
+  "Disgust",
+  "Fear",
+  "Happy",
+  "Neutral",
+  "Sad",
+  "Surprise"
+];

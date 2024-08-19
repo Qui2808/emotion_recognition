@@ -44,11 +44,11 @@ dependencies:
   tflite_flutter: ^0.10.4
   image: ^4.1.7
   google_ml_kit: ^0.18.0
-  video_player: ^2.8.5
   flick_video_player: ^0.8.0
   objectbox: ^4.0.1
   objectbox_flutter_libs: any
   intl: ^0.19.0
+  fl_chart: ^0.68.0
 
 dev_dependencies:
   flutter_test:
@@ -82,8 +82,9 @@ flutter:
   #   - images/a_dot_ham.jpeg
 
   assets:
-      - assets/images/
-      - assets/
+    - assets/images/
+    - assets/videos/
+    - assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

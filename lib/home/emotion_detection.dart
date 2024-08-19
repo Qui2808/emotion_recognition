@@ -13,7 +13,7 @@ class EmotionDetection {
   }
 
   Future<void> loadModel() async {
-    interpreter = await Interpreter.fromAsset('assets/model_mobilenet_48.tflite');
+    interpreter = await Interpreter.fromAsset('assets/model_cnn.tflite');
   }
 
   // Future<List<double>> predict(InputImage inputImage, Face faceDetected) async {

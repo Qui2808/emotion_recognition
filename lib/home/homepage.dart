@@ -2,8 +2,6 @@ import 'package:facial_emotions/home/view/face_detector_view.dart';
 import 'package:facial_emotions/manager/output_management_page.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/object_box_manager.dart';
-
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -21,22 +19,52 @@ class Home extends StatelessWidget {
               child: Column(
                 children: [
                   TextButton(
-                      onPressed: (){
-                        Navigator.push(
-                            context, MaterialPageRoute(builder: (context) => FaceDetectorView()));
-                      },
-                      child: const Text('Emotion Recognition')),
-
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => FaceDetectorView(),
+                        ),
+                      );
+                    },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.asset(
+                          'assets/images/play_button.png',
+                          width: 40,
+                          height: 40,
+                        ),
+                        const SizedBox(width: 8),
+                        const Text('Emotion Recognition'),
+                      ],
+                    ),
+                  ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 28.0),
+                    padding: const EdgeInsets.only(top: 38.0),
                     child: TextButton(
-                        onPressed: (){
-                          Navigator.push(
-                              context, MaterialPageRoute(builder: (context) => ObjectBoxQueryPage()));
-                        },
-                        child: const Text('Emotion Manager')),
-                  )
-
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ObjectBoxQueryPage(),
+                          ),
+                        );
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Image.asset(
+                            'assets/images/statistics_button.png',
+                            width: 40,
+                            height: 40,
+                          ),
+                          const SizedBox(width: 8),
+                          const Text('Emotion Manager'),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -46,5 +74,3 @@ class Home extends StatelessWidget {
     );
   }
 }
-
-
